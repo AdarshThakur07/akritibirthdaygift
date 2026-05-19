@@ -70,6 +70,86 @@
       color: white;
     }
 
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 40px;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .hero-image {
+      width: 100%;
+      min-height: 360px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-image img.vertical-photo {
+      transform: rotate(-90deg);
+      transform-origin: center center;
+      object-fit: cover;
+      width: auto;
+      height: 100%;
+    }
+
+    .gallery-section {
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 30px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .photo-card {
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      min-height: 240px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+      transition: transform 0.35s ease, border-color 0.35s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(244, 114, 182, 0.65);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-card span {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      color: white;
+      text-shadow: 0 0 12px rgba(0,0,0,0.6);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
     /* FLOATING HEARTS */
 
     .floating-hearts {
@@ -245,9 +325,23 @@
       top: 0;
       left: 0;
       pointer-events: none;
+      z-index: -2;
+      opacity: 0.85;
+      filter: blur(0.45px);
     }
 
     /* MOBILE */
+
+    @media(max-width:960px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        margin-top: 30px;
+        
+      }
+    }
 
     @media(max-width:768px) {
 
@@ -263,6 +357,15 @@
         font-size: 2.5rem;
       }
     }
+
+    .container-div{
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-image > p {
+      position: relative;
+      top: -35px; 
+    }
   </style>
 </head>
 
@@ -276,16 +379,48 @@
 
   <section class="hero">
 
-    <h1>Happy Birthday, Akriti ❤️</h1>
+    <div class="container-div"">
+      <h1>Happy Birthday, Akriti ❤️</h1>
 
-    <p>
-      I made something small for someone who means
-      something really special to me.
-    </p>
+      <p>
+        I made something small for someone who means
+        something really special to me.
+      </p>
 
-    <button class="btn" onclick="scrollToMemories()">
-      Open Your Surprise ✨
-    </button>
+      <button class="btn" onclick="scrollToMemories()">
+        Scroll down ✨
+      </button>
+    </div>
+
+    <div class="hero-image">
+      <img class="vertical-photo" src="her_images/cropped.jpg" alt="Birthday surprise photo" />
+      <p>Meet my "madam ji 💖 ☝️🧿"</p>
+    </div>
+
+  </section>
+
+  <section class="gallery-section">
+
+    <h1>Memories Captured 📸</h1>
+
+    <div class="gallery">
+      <div class="photo-card">
+        <img src="her_images/cropped.jpg" style="transform: rotate(-90deg);" alt="Special moment" />
+        <span>inki smile 💖 aye haye!!</span>
+      </div>
+      <div class="photo-card">
+        <img src="her_images/Screenshot%202025-10-19%20150235.png" alt="Cute memory" />
+        <span>meri madam in annual function! 😍</span>
+      </div>
+      <div class="photo-card">
+        <img src="her_images/Screenshot%202025-11-17%20210203.png" alt="Lovely times" />
+        <span>laal suit me , khoobsurat! 😘</span>
+      </div>
+      <div class="photo-card">
+        <img src="her_images/Screenshot%202025-12-10%20191345.png" alt="Happy birthday" />
+        <span>hari suit me, laazawaab 🧿</span>
+      </div>
+    </div>
 
   </section>
 
@@ -555,16 +690,25 @@
     const ctx =
       canvas.getContext("2d");
 
-    canvas.width =
-      window.innerWidth;
+    const imageSources = [
+      "her_images/cropped.jpg",
+      "her_images/Screenshot%202025-10-19%20150235.png",
+      "her_images/Screenshot%202025-11-17%20210203.png",
+      "her_images/Screenshot%202025-12-10%20191345.png"
+    ];
 
-    canvas.height =
-      window.innerHeight;
-
+    const loadedImages = [];
     const pieces = [];
+    const photoPieces = [];
+
+    function setCanvasSize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    setCanvasSize();
 
     function randomColor() {
-
       const colors = [
         "#ff4d6d",
         "#ffd166",
@@ -579,94 +723,136 @@
     }
 
     function createPiece() {
-
       return {
-
         x: Math.random() * canvas.width,
-
-        y: Math.random() * canvas.height
-          - canvas.height,
-
+        y: Math.random() * canvas.height - canvas.height,
         size: Math.random() * 10 + 5,
-
         speed: Math.random() * 3 + 2,
-
         color: randomColor(),
-
         rotation: Math.random() * 360
-
       };
-
     }
 
+    function createPhotoPiece() {
+      const image = loadedImages.length
+        ? loadedImages[Math.floor(Math.random() * loadedImages.length)]
+        : null;
+
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        size: Math.random() * 90 + 50,
+        speed: Math.random() * 0.5 + 0.35,
+        opacity: Math.random() * 0.24 + 0.12,
+        rotation: Math.random() * 360,
+        rotationSpeed: Math.random() * 0.18 + 0.06,
+        image
+      };
+    }
+
+    function preloadImages() {
+      imageSources.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          loadedImages.push(img);
+
+          // assign this loaded image to any existing placeholders so images
+          // appear as soon as the first assets finish loading
+          for (let i = 0; i < photoPieces.length; i++) {
+            if (!photoPieces[i].image) {
+              photoPieces[i].image = img;
+            }
+          }
+        };
+        img.onerror = () => {
+          console.warn("Failed to load image:", src);
+        };
+      });
+    }
+
+    const CONFETTI_COUNT = 60;
+    const PHOTO_PIECES_COUNT = 4;
+
     function startConfetti() {
-
-      for (let i = 0; i < 250; i++) {
-
+      for (let i = 0; i < CONFETTI_COUNT; i++) {
         pieces.push(createPiece());
+      }
 
+      for (let i = 0; i < PHOTO_PIECES_COUNT; i++) {
+        photoPieces.push(createPhotoPiece());
       }
 
       animateConfetti();
-
     }
 
     function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      pieces.forEach((p, index) => {
-
-        p.y += p.speed;
-
-        p.rotation += 2;
-
+      photoPieces.forEach((p, index) => {
         ctx.save();
 
-        ctx.translate(p.x, p.y);
-
-        ctx.rotate(
-          p.rotation * Math.PI / 180
-        );
-
-        ctx.fillStyle = p.color;
-
-        ctx.fillRect(
-          -p.size / 2,
-          -p.size / 2,
-          p.size,
-          p.size
-        );
+        if (p.image) {
+          ctx.globalAlpha = p.opacity;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.drawImage(p.image, -p.size / 2, -p.size / 2, p.size, p.size);
+        } else {
+          // placeholder: subtle translucent square so movement is visible early
+          ctx.globalAlpha = Math.min(0.12, p.opacity || 0.08);
+          ctx.fillStyle = "rgba(255,255,255,0.4)";
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        }
 
         ctx.restore();
 
-        if (p.y > canvas.height) {
+        p.y += p.speed;
+        p.rotation += p.rotationSpeed;
 
-          pieces.splice(index, 1);
-
+        if (p.y > canvas.height + p.size) {
+          photoPieces[index] = createPhotoPiece();
+          photoPieces[index].y = -photoPieces[index].size - 40;
         }
-
       });
 
-      requestAnimationFrame(
-        animateConfetti
-      );
+      for (let i = pieces.length - 1; i >= 0; i--) {
+        const p = pieces[i];
+        p.y += p.speed;
+        p.rotation += 2;
 
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation * Math.PI / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+
+        if (p.y > canvas.height) {
+          pieces.splice(i, 1);
+        }
+      }
+
+      while (pieces.length < CONFETTI_COUNT) {
+        pieces.push(createPiece());
+      }
+
+      requestAnimationFrame(animateConfetti);
     }
 
     window.addEventListener("resize", () => {
+      setCanvasSize();
+    });
 
-      canvas.width =
-        window.innerWidth;
-
-      canvas.height =
-        window.innerHeight;
-
+    window.addEventListener("load", () => {
+      preloadImages();
+      const loader = setInterval(() => {
+        if (loadedImages.length > 0) {
+          clearInterval(loader);
+          startConfetti();
+        }
+      }, 50);
     });
 
   </script>
