@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Akriti❤️</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e1b4b, #312e81);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    /* HERO */
+
+    .hero h1 {
+      font-size: 4rem;
+      text-align: center;
+      animation: fadeUp 1s ease;
+    }
+
+    .hero p {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      opacity: 0.8;
+      text-align: center;
+      max-width: 650px;
+    }
+
+    .btn {
+      margin-top: 35px;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 40px;
+      background: white;
+      color: #111827;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      background: #f472b6;
+      color: white;
+    }
+
+    /* FLOATING HEARTS */
+
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      color: #ff4d6d;
+      opacity: 0.7;
+      animation: float linear forwards;
+      filter: drop-shadow(0 0 10px #ff4d6d);
+    }
+
+    @keyframes float {
+
+      0% {
+        transform:
+          translateY(0) translateX(0) rotate(0deg);
+
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      100% {
+        transform:
+          translateY(-110vh) translateX(80px) rotate(360deg);
+
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeUp {
+
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* MEMORIES */
+
+    .timeline {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .memory {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 20px;
+      margin: 20px 0;
+      transition: 0.4s;
+    }
+
+    .memory:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .memory h3 {
+      margin-bottom: 10px;
+      color: #f9a8d4;
+    }
+
+    /* FLIP CARDS */
+
+    .reasons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 40px;
+    }
+
+    .card {
+      height: 220px;
+      perspective: 1000px;
+    }
+
+    .inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: 0.8s;
+      cursor: pointer;
+    }
+
+    /* NEW CLICK FLIP */
+
+    .card.flipped .inner {
+      transform: rotateY(180deg);
+    }
+
+    .front,
+    .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      backface-visibility: hidden;
+    }
+
+    .front {
+      background: #ec4899;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .back {
+      background: white;
+      color: #111827;
+      transform: rotateY(180deg);
+    }
+
+    /* FINAL */
+
+    .final-message {
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .final-message h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .final-message p {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .surprise {
+      display: none;
+      margin-top: 40px;
+      animation: fadeUp 1s ease;
+    }
+
+    .surprise h1 {
+      font-size: 4rem;
+      color: #f472b6;
+      text-shadow: 0 0 20px rgba(244, 114, 182, 0.8);
+    }
+
+    /* CONFETTI */
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px) {
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .final-message h2 {
+        font-size: 2rem;
+      }
+
+      .surprise h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="floating-hearts"></div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <h1>Happy Birthday, Akriti ❤️</h1>
+
+    <p>
+      I made something small for someone who means
+      something really special to me.
+    </p>
+
+    <button class="btn" onclick="scrollToMemories()">
+      Open Your Surprise ✨
+    </button>
+
+  </section>
+
+  <!-- MEMORIES -->
+
+  <section>
+
+    <h1 style="margin-bottom:40px;">
+      Little Moments 🌸
+    </h1>
+
+    <div class="timeline">
+
+      <div class="memory">
+        <h3>Your Eyes</h3>
+
+        <p>
+          Whenever i see in your eyes, mera din ban jaata hai yrr 💖
+        </p>
+      </div>
+
+      <div class="memory">
+        <h3>Your Smile</h3>
+
+        <p>
+          Whenever you smile, mera bura waqt bhi accha lagne lagta hai.💫
+        </p>
+      </div>
+
+      <div class="memory">
+        <h3>The Way You Exist</h3>
+
+        <p>
+          ek aap hi to reason ho, jiski wajah se mein school aata hu!
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- REASONS -->
+
+  <section>
+
+    <h1>Why You're Special 💖</h1>
+
+    <div class="reasons">
+
+      <!-- CARD 1 -->
+
+      <div class="card">
+
+        <div class="inner">
+
+          <div class="front">
+            Your Smile
+          </div>
+
+          <div class="back">
+            It’s unfair how one smile
+            can change my whole mood ❤️
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CARD 2 -->
+
+      <div class="card">
+
+        <div class="inner">
+
+          <div class="front">
+            Your Energy
+          </div>
+
+          <div class="back">
+            You make conversations
+            feel effortless and warm ✨
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CARD 3 -->
+
+      <div class="card">
+
+        <div class="inner">
+
+          <div class="front">
+            Your Kindness
+          </div>
+
+          <div class="back">
+            The way you care about people
+            says everything about you 🌸
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CARD 4 -->
+
+      <div class="card">
+
+        <div class="inner">
+
+          <div class="front">
+            Just You
+          </div>
+
+          <div class="back">
+            I dont care what ppl think, or something else.
+            I just genuinely love you 💖
+            and i am 100% sure no one will love you like me
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FINAL -->
+
+  <section>
+
+    <div class="final-message">
+
+      <h2>One Last Thing...</h2>
+
+      <p>
+        You’ve made ordinary days feel special for me.
+        <br><br>
+
+        So I wanted to make something special for yours.
+        <br><br>
+
+        I hope this year brings you happiness,
+        peace, beautiful memories,
+        and everything your heart deserves.
+        <br><br>
+
+        Happy Birthday ❤️
+        <br><br>
+        One more thing i want to ask....
+
+      </p>
+
+      <button class="btn" onclick="what()">
+        What? 🤔
+      </button>
+
+      <div class="surprise" id="surprise">
+        <h1>I Like You 🌸</h1>
+      </div>
+
+    </div>
+
+  </section>
+
+  <script>
+    function what() {
+      window.location.href = "doyoulikeme.html";
+    }
+    // SMOOTH SCROLL
+
+    function scrollToMemories() {
+
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: "smooth"
+      });
+
+    }
+
+    // FLOATING HEARTS
+
+    const heartsContainer =
+      document.querySelector(".floating-hearts");
+
+    function createHeart() {
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerHTML = "❤";
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.fontSize =
+        Math.random() * 20 + 15 + "px";
+
+      heart.style.animationDuration =
+        Math.random() * 5 + 5 + "s";
+
+      heartsContainer.appendChild(heart);
+
+      // cleaner remove
+
+      heart.addEventListener("animationend", () => {
+
+        heart.remove();
+
+      });
+
+    }
+
+    setInterval(createHeart, 300);
+
+    // NEW CLICK FLIP CARDS
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+      card.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        // close other cards
+
+        cards.forEach(c => {
+
+          if (c !== card) {
+
+            c.classList.remove("flipped");
+
+          }
+
+        });
+
+        // toggle current card
+
+        card.classList.toggle("flipped");
+
+      });
+
+    });
+
+    // click outside closes all
+
+    document.addEventListener("click", () => {
+
+      cards.forEach(card => {
+
+        card.classList.remove("flipped");
+
+      });
+
+    });
+
+
+
+    const canvas =
+      document.getElementById("confetti");
+
+    const ctx =
+      canvas.getContext("2d");
+
+    canvas.width =
+      window.innerWidth;
+
+    canvas.height =
+      window.innerHeight;
+
+    const pieces = [];
+
+    function randomColor() {
+
+      const colors = [
+        "#ff4d6d",
+        "#ffd166",
+        "#06d6a0",
+        "#118ab2",
+        "#f72585"
+      ];
+
+      return colors[
+        Math.floor(Math.random() * colors.length)
+      ];
+    }
+
+    function createPiece() {
+
+      return {
+
+        x: Math.random() * canvas.width,
+
+        y: Math.random() * canvas.height
+          - canvas.height,
+
+        size: Math.random() * 10 + 5,
+
+        speed: Math.random() * 3 + 2,
+
+        color: randomColor(),
+
+        rotation: Math.random() * 360
+
+      };
+
+    }
+
+    function startConfetti() {
+
+      for (let i = 0; i < 250; i++) {
+
+        pieces.push(createPiece());
+
+      }
+
+      animateConfetti();
+
+    }
+
+    function animateConfetti() {
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      pieces.forEach((p, index) => {
+
+        p.y += p.speed;
+
+        p.rotation += 2;
+
+        ctx.save();
+
+        ctx.translate(p.x, p.y);
+
+        ctx.rotate(
+          p.rotation * Math.PI / 180
+        );
+
+        ctx.fillStyle = p.color;
+
+        ctx.fillRect(
+          -p.size / 2,
+          -p.size / 2,
+          p.size,
+          p.size
+        );
+
+        ctx.restore();
+
+        if (p.y > canvas.height) {
+
+          pieces.splice(index, 1);
+
+        }
+
+      });
+
+      requestAnimationFrame(
+        animateConfetti
+      );
+
+    }
+
+    window.addEventListener("resize", () => {
+
+      canvas.width =
+        window.innerWidth;
+
+      canvas.height =
+        window.innerHeight;
+
+    });
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoYouLikeMe</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: poppins;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(255, 126, 148);
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container h1,
+        .container p {
+            color: white;
+        }
+
+        .container p {
+            margin-top: 10px;
+        }
+
+        .yes,
+        .no {
+            margin: 20px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0px 4px 11px 0px black;
+            transition: all 0.3s;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .yes {
+            background-color: rgb(0, 227, 0);
+        }
+
+        .no {
+            background-color: rgb(255, 40, 40);
+        }
+
+        .yes:active,
+        .no:active {
+            transform: scale(1.1);
+        }
+
+        #confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <div class="container">
+
+            <h1>Do You Like Adarsh Thakur (me)?</h1>
+
+            <p>{ please "na" mat bolio }</p>
+
+            <button class="yes">Yes 💖</button>
+
+            <button class="no">No 😭</button>
+
+        </div>
+
+    </div>
+
+    <canvas id="confetti"></canvas>
+
+    <script>
+
+        let text1 = document.querySelector("h1");
+        let text2 = document.querySelector("p");
+
+        let nobtn = document.querySelector(".no");
+        let yesbtn = document.querySelector(".yes");
+
+        yesbtn.addEventListener("click", yes);
+
+        function yes() {
+
+            text1.innerHTML = "Love you too meri jannn 💖💖";
+
+            text2.innerHTML = "mujhe to pehle hi pata thaaa....";
+
+            yesbtn.style.display = "none";
+
+            nobtn.style.display = "none";
+
+            startConfetti();
+        }
+
+        let clickCount = 0;
+
+        nobtn.style.transition = "0.2s";
+
+        nobtn.addEventListener("click", () => {
+
+            clickCount++;
+
+            if (clickCount === 1) {
+
+                text2.innerHTML = "{ thoda sa bhi nhi ???? }";
+
+            }
+
+            else if (clickCount === 2) {
+
+                text2.innerHTML = "{ thoda sa to karti hi hogi }";
+
+            }
+
+            else if (clickCount === 3) {
+
+                text2.innerHTML = "{ ek aur baar sochle }";
+
+            }
+
+            else if (clickCount === 4) {
+
+                text2.innerHTML = "{ koi krishna, sourav, karan, vicky itna nhi sochega tere bare me!! }";
+
+            }
+
+            else if (clickCount === 5) {
+
+                text2.innerHTML = "{ Last Chance }";
+
+                nobtn.style.position = "absolute";
+            }
+
+            else {
+
+                let x = Math.random() * (window.innerWidth - nobtn.offsetWidth);
+
+                let y = Math.random() * (window.innerHeight - nobtn.offsetHeight);
+
+                nobtn.style.left = x + "px";
+
+                nobtn.style.top = y + "px";
+            }
+
+        });
+
+
+
+        // CONFETTI
+
+        const canvas = document.getElementById("confetti");
+
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+
+        canvas.height = window.innerHeight;
+
+        const pieces = [];
+
+        function randomColor() {
+
+            const colors = [
+                "#ff4d6d",
+                "#ffd166",
+                "#06d6a0",
+                "#118ab2",
+                "#f72585"
+            ];
+
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createPiece() {
+
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height,
+                size: Math.random() * 10 + 5,
+                speed: Math.random() * 3 + 2,
+                color: randomColor(),
+                rotation: Math.random() * 360
+            };
+        }
+
+        function startConfetti() {
+
+            for (let i = 0; i < 250; i++) {
+
+                pieces.push(createPiece());
+
+            }
+
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            pieces.forEach((p, index) => {
+
+                p.y += p.speed;
+
+                p.rotation += 2;
+
+                ctx.save();
+
+                ctx.translate(p.x, p.y);
+
+                ctx.rotate(p.rotation * Math.PI / 180);
+
+                ctx.fillStyle = p.color;
+
+                ctx.fillRect(
+                    -p.size / 2,
+                    -p.size / 2,
+                    p.size,
+                    p.size
+                );
+
+                ctx.restore();
+
+                if (p.y > canvas.height) {
+
+                    pieces.splice(index, 1);
+
+                }
+
+            });
+
+            requestAnimationFrame(animateConfetti);
+        }
+
+        window.addEventListener("resize", () => {
+
+            canvas.width = window.innerWidth;
+
+            canvas.height = window.innerHeight;
+
+        });
+
+    </script>
+
+</body>
+
+</html>
