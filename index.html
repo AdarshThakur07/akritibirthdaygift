@@ -254,6 +254,14 @@
       transition: 0.8s;
       cursor: pointer;
     }
+    #your-kindness {
+      height: 120%;
+    }
+    #kindness-container{
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+    }     
 
     /* NEW CLICK FLIP */
 
@@ -283,11 +291,45 @@
     }
 
     .back {
-      background: white;
-      color: #111827;
+      background: linear-gradient(135deg ,pink ,rgb(255, 131, 151));
+      color: #ffffff;
       transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+    .back > img {
+      height: 90%;
+      box-shadow: 0 0 9px 0  black;
+    }
+    .back > p {
+      margin-top: 6px;
     }
 
+    .justyou-container{
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* background-color: black; */
+    }
+    .justyou-container > img{
+      height: 100%;
+      position: absolute;
+      z-index: -100;
+      left: 100px;
+      
+    }
+    #container{
+      overflow: hidden;
+    }
+    #container > img{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      opacity: 0.5;
+    }
     /* FINAL */
 
     .final-message {
@@ -366,6 +408,8 @@
       position: relative;
       top: -35px; 
     }
+
+    
   </style>
 </head>
 
@@ -481,8 +525,8 @@
           </div>
 
           <div class="back">
-            It’s unfair how one smile
-            can change my whole mood ❤️
+            <img src="her_images/her-smile.png" alt="">
+            <p>Dazzling smile 😍</p>
           </div>
 
         </div>
@@ -496,12 +540,12 @@
         <div class="inner">
 
           <div class="front">
-            Your Energy
+            Your Eyes
           </div>
 
           <div class="back">
-            You make conversations
-            feel effortless and warm ✨
+            <img src="her_images/her-eyes.png" alt="">
+            <p>Aankho aankho ka maslaa...💘</p>
           </div>
 
         </div>
@@ -518,9 +562,10 @@
             Your Kindness
           </div>
 
-          <div class="back">
-            The way you care about people
-            says everything about you 🌸
+          <div class="back" id="kindness-container">
+            <img src="her_images/collage.png" id="your-kindness" alt="">
+            <p>The way you care about people
+            says everything about you 🌸</p>
           </div>
 
         </div>
@@ -537,10 +582,16 @@
             Just You
           </div>
 
-          <div class="back">
-            I dont care what ppl think, or something else.
-            I just genuinely love you 💖
-            and i am 100% sure no one will love you like me
+          <div class="back" id="container">
+            <img src="her_images/black-bg.webp" alt="">
+            <div class="justyou-container">
+              <img src="her_images/collage.png" alt="">
+              <p>
+                I dont care what ppl think, or something else.
+                I just genuinely love you 💖
+                and i am 100% sure no one will love you like me
+              </p>
+            </div>
           </div>
 
         </div>
